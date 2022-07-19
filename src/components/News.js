@@ -1,21 +1,20 @@
 import React, { Component } from "react";
 import NewsItem from "./NewsItem";
 import Spinner from "./Spinner";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
 
 export class News extends Component {
-
-  static defaultProps ={
-  country:'in' ,
-  pageSize: 9 ,
-  category:'general'
-  }
-  static propTypes ={
-    country: PropTypes.string ,
-    pageSize : PropTypes.number ,
-    category : PropTypes.string 
-  }
-  constructor() { 
+  static defaultProps = {
+    country: "in",
+    pageSize: 9, 
+    category: "general",
+  };
+  static propTypes = {
+    country: PropTypes.string,
+    pageSize: PropTypes.number,
+    category: PropTypes.string,
+  };
+  constructor() {
     super();
     this.state = {
       articles: [],
@@ -44,9 +43,13 @@ export class News extends Component {
         Math.ceil(this.state.totalResults / this.props.pageSize)
       )
     ) {
-      let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=1826ac46adbb4d9dbdefb74ea1049d7d&page=${
+      let url = `https://newsapi.org/v2/top-headlines?country=${
+        this.props.country
+      }&category=${
+        this.props.category
+      }&apiKey=1826ac46adbb4d9dbdefb74ea1049d7d&page=${
         this.state.page + 1
-      }&pageSize=${this.props.pageSize}`; 
+      }&pageSize=${this.props.pageSize}`;
       this.setState({
         loading: true,
       });
@@ -62,7 +65,11 @@ export class News extends Component {
   };
   handlePrevClick = async () => {
     console.log("prev btn");
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=1826ac46adbb4d9dbdefb74ea1049d7d&page=${
+    let url = `https://newsapi.org/v2/top-headlines?country=${
+      this.props.country
+    }&category=${
+      this.props.category
+    }&apiKey=1826ac46adbb4d9dbdefb74ea1049d7d&page=${
       this.state.page + -1
     }&pageSize=${this.props.pageSize}`;
     this.setState({
@@ -77,7 +84,7 @@ export class News extends Component {
       articles: parsedData.articles,
     });
   };
-  
+
   render() {
     return (
       <div className="container">
