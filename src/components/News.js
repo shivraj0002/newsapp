@@ -14,13 +14,17 @@ export class News extends Component {
     pageSize: PropTypes.number,
     category: PropTypes.string,
   };
-  constructor() {
-    super();
+  categoryCapatalizer = (str)=>{
+       return str[0].toUpperCase() + str.substring(1);
+  }
+  constructor(props) {
+    super(props);
     this.state = {
       articles: [],
       loading: false,
       page: 1,
     };
+    document.title = `NewsHunt - ${this.props.category==='general'?'Home':this.categoryCapatalizer(this.props.category)}`;
   }
   async componentDidMount() {
     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=1826ac46adbb4d9dbdefb74ea1049d7d&page=1&pageSize=${this.props.pageSize}`;
@@ -126,7 +130,7 @@ export class News extends Component {
   render() {
     return (
       <div className="container">
-        <h1 className="text-center">NewsHunt - Top headlines</h1>
+        <h1 className="text-center">{`Top ${this.categoryCapatalizer(this.props.category)} headlines - NewsHunt`}</h1>
         {this.state.loading && <Spinner />}
         <div className="row">
           {!this.state.loading &&
