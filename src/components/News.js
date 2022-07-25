@@ -155,7 +155,7 @@ export class News extends Component
         <h1 className="text-center" style={{marginTop:'90px'}}>{`Top ${this.categoryCapatalizer(
           this.props.category
         )} headlines - NewsHunt`}</h1>
-        {this.state.loading && <Spinner />}
+        {this.state.loading && <Spinner/>}
         <InfiniteScroll
           dataLength={this.state.articles.length}
           next={this.fetchMoreData}
