@@ -132,21 +132,19 @@ export class News extends Component
     this.handelLoadingFunction();
   };
   fetchMoreData = async () => {
-    this.setState({
-      page: this.state.page + 1
-    });
+    
     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country
         }&category=${this.props.category
         }&apiKey=1826ac46adbb4d9dbdefb74ea1049d7d&page=${this.state.page + 1
         }&pageSize=${this.props.pageSize}`;
-      this.setState({
-        loading: true,
-      });
+        this.setState({
+          page: this.state.page + 1
+        });
       let data = await fetch(url);
       let parsedData = await data.json();
       this.setState({
-        loading: false,
         articles: this.state.articles.concat(parsedData.articles),
+        
       });
   };
 
@@ -154,10 +152,10 @@ export class News extends Component
   {
     return (
       <>
-        <h1 className="text-center">{`Top ${this.categoryCapatalizer(
+        <h1 className="text-center" style={{marginTop:'90px'}}>{`Top ${this.categoryCapatalizer(
           this.props.category
         )} headlines - NewsHunt`}</h1>
-        {/* {this.state.loading && <Spinner />} */}
+        {this.state.loading && <Spinner />}
         <InfiniteScroll
           dataLength={this.state.articles.length}
           next={this.fetchMoreData}
